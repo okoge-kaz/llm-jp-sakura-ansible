@@ -1,0 +1,8 @@
+---
+- name: Install NVIDIA Driver
+  include_tasks: driver.yml
+  when: "'gpu' in group_names"
+
+- name: Setup systemd
+  include_tasks: systemd.yml
+  when: "'gpu' in group_names"

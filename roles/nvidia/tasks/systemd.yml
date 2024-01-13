@@ -1,0 +1,20 @@
+---
+- name: Setup nvidia devices
+  copy:
+    dest: /etc/systemd/system/check-nvidia-devices.service
+    content: |
+      [Unit]
+      Description=Execute `nvidia-smi` to make /dev/nvidiaX files
+
+      [Service]
+      Type=oneshot
+      ExecStart=nvidia-smi
+
+      [Install]
+      WantedBy=multi-user.target
+
+- name: Start and enable check-nvidia-devices.service
+  systemd:
+    name: check-nvidia-devices.service
+    state: restarted
+    enabled: yes

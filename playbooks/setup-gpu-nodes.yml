@@ -1,0 +1,8 @@
+- hosts: gpu
+  become: yes
+
+  roles:
+    - role: packages
+
+    - role: nvidia
+      tags: nvidia

@@ -1,0 +1,100 @@
+---
+- name: Install DKMS with apt
+  apt:
+    name: dkms
+
+- name: Kill Xorg processes
+  shell: killall Xorg
+  ignore_errors: yes
+
+- name: Init 3
+  shell: init 3
+
+- name: Stop docker
+  systemd:
+    name: docker
+    state: stopped
+  ignore_errors: yes
+
+- name: Unload kernel module `nvidia_drm`
+  modprobe:
+    name: nvidia_drm
+    state: absent
+  ignore_errors: yes
+
+- name: Unload kernel module `nvidia_modeset`
+  modprobe:
+    name: nvidia_modeset
+    state: absent
+  ignore_errors: yes
+
+- name: Unload kernel module `nvidia`
+  modprobe:
+    name: nvidia
+    state: absent
+  ignore_errors: yes
+
+- name: Add nouveau to blacklist
+  copy:
+    dest: /etc/modprobe.d/blacklist-nvidia-nouveau.conf
+    content:
+      blacklist nouveau
+      options nouveau modeset=0
+  register: nouveau2blacklist
+
+- name: Update initramfs
+  shell: update-initramfs -u
+  when: nouveau2blacklist.changed
+
+- name: Unload kernel module nouveau
+  modprobe:
+    name: nouveau
+    state: absent
+
+- name: Download NVIDIA Driver
+  get_url:
+    url: "{{ nvidia_driver_url }}"
+    dest: /tmp/nv_driver.run
+    mode: 0700
+    force: yes
+
+- name: Install NVIDIA Driver
+  shell: sh /tmp/nv_driver.run --silent --dkms --no-cc-version-check
+
+- name: Check NVIDIA Driver installation
+  shell: cat /var/log/nvidia-installer.log | grep "now complete"
+  register: nv_driver_install_status
+
+- name: Output NVIDIA Driver installation status
+  debug: var=nv_driver_install_status
+
+- name: Check DKMS
+  shell: dkms status | grep nvidia
+  register: dkms_status
+
+- name: Output NVIDIA Driver installation status
+  debug: var=dkms_status
+
+- name: load kernel module `nvidia`
+  modprobe:
+    name: nvidia
+
+- name: Start docker
+  systemd:
+    name: docker
+    state: started
+  ignore_errors: yes
+
+- name: Start dcgm_exporter (If exist)
+  systemd:
+    name: dcgm_exporter
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  ignore_errors: yes
+
+- name: set kernel module config
+  lineinfile:
+    create: yes
+    path: /etc/modprobe.d/nsight-privilege.conf
+    line: options nvidia "NVreg_RestrictProfilingToAdminUsers=0"
