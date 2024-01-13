@@ -20,3 +20,25 @@ ansible all -m raw -a "hostname"  -k
 rksv-isk-2-2-e-s-21-2
 Shared connection to 172.16.17.231 closed.
 ```
+
+## SSH keys settings
+
+```bash
+ssh-keygen -t ed25519 -f gpu-node
+ansible-playbook  playbooks/setup-ssh-keys.yml
+ansible-playbook  playbooks/setup-ssh-keys.yml
+```
+
+ssh config
+```
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/github
+
+Host 172.16.17.*
+  User ubuntu
+  IdentityFile ~/.ssh/gpu-node
+  StrictHostKeyChecking no
+```
+
