@@ -1,0 +1,10 @@
+---
+- name: Set up passwordless SSH
+  hosts: all
+  become: yes
+  tasks:
+    - name: Copy SSH public key to remote
+      authorized_key:
+        user: ubuntu
+        state: present
+        key: "{{ lookup('file', '/home/llmjp0/.ssh/gpu-node.pub') }}"
