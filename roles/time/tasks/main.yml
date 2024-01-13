@@ -1,0 +1,14 @@
+---
+- name: Set timezone
+  shell: timedatectl set-timezone Asia/Tokyo
+
+- name: Set NTP
+  lineinfile:
+    path: /etc/systemd/timesyncd.conf
+    line: 'NTP=ntp.nict.jp'
+    insertafter: '[Time]'
+
+- name: Restart systemd-timesyncd
+  systemd:
+    name: systemd-timesyncd
+    state: restarted

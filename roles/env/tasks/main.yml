@@ -1,0 +1,5 @@
+---
+- name: Set MODULEPATH
+  lineinfile:
+    path: /etc/environment
+    line: MODULEPATH=/mnt/nfs/modulefiles/nvidia:/mnt/nfs/modulefiles/intel:/mnt/nfs/modulefiles/etc
