@@ -1,0 +1,15 @@
+---
+- name: Update SSH configurations and restart SSH
+  hosts: all
+  become: yes
+  tasks:
+    - name: Enable public key authentication
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PubkeyAuthentication'
+        line: 'PubkeyAuthentication yes'
+
+    - name: Restart SSH service
+      service:
+        name: sshd
+        state: restarted
