@@ -89,4 +89,7 @@ localhost                  : ok=7    changed=5    unreachable=0    failed=0    s
 ### NFS client (GPU node)
 
 ```bash
+ansible-playbook playbooks/setup-nfs.yml
+```
 
+## Environment Modules settings
