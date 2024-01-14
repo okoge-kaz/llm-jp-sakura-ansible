@@ -22,7 +22,6 @@
       - python3-openssl
       - git
       - nfs-common
-      - nfs-kernel-server
       - libopenmpi-dev
       - openmpi-bin
       - zip

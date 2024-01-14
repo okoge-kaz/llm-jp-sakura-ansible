@@ -1,0 +1,54 @@
+- hosts: nfs_server
+  become: yes
+  vars:
+    nfs_exports:
+      - path: "/mnt/volume/shared"
+        options: "*(rw,sync,no_root_squash)"
+        hosts:
+          - "172.16.17.0/24"
+      - path: "/mnt/volume/home"
+        options: "*(rw,sync,no_root_squash)"
+        hosts:
+          - "172.16.17.0/24"
+
+  tasks:
+    - name: Install NFS
+      apt:
+        pkg:
+          - nfs-kernel-server
+
+    - name: Create mount point
+      file:
+        path: /mnt/volume
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Create mount point
+      file:
+        path: /mnt/volume/shared
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Create mount point
+      file:
+        path: /mnt/volume/home
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Set exports
+      lineinfile:
+        dest: /etc/exports
+        line: "{{ item.path }} {{ item.options }} {{ item.hosts | join(' ') }}"
+        state: present
+      with_items: "{{ nfs_exports }}"
+
+    - name: Restart NFS
+      service:
+        name: nfs-kernel-server
+        state: restarted
