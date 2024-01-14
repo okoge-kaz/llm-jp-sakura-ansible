@@ -27,3 +27,4 @@
       - zip
       - unzip
       - jq
+      - environment-modules
