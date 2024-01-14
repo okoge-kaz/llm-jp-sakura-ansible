@@ -1,0 +1,49 @@
+- name: Install NFS
+  apt:
+    pkg:
+      - nfs-common
+
+- name: Create mount point
+  file:
+    path: /mnt/nfs/shared
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: '0777'
+
+- name: Create mount point
+  file:
+    path: /mnt/nfs/home
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: '0777'
+
+- name: Unmount mounted NFS
+  mount:
+    path: /mnt/nfs/shared
+    state: unmounted
+
+- name: Unmount mounted NFS
+  mount:
+    path: /mnt/nfs/home
+    state: unmounted
+
+- name: Set fstab (shared)
+  lineinfile:
+    dest: /etc/fstab
+    line: "172.16.0.2:/mnt/volume/shared /mnt/nfs/shared nfs vers=3,rsize=1048576,wsize=1048576,soft 0 0"
+
+- name: Set fstab (home)
+  lineinfile:
+    dest: /etc/fstab
+    line: "172.16.0.2:/mnt/volume/home /mnt/nfs/home nfs vers=3,rsize=1048576,wsize=1048576,soft 0 0"
+
+- name: Mount
+  shell: mount -a
+
+- name: Enable rpc-statd
+  systemd:
+    name: rpc-statd
+    state: started
+    enabled: yes

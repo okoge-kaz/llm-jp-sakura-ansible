@@ -1,0 +1,6 @@
+- hosts: gpu
+  become: yes
+
+  roles:
+    - role: nfs
+      tags: nfs
