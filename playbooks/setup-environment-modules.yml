@@ -1,0 +1,11 @@
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: set up environment modules
+      copy:
+        dest: /etc/profile.d/modules.sh
+        content: |
+          #!/bin/sh
+          source /usr/share/modules/init/sh
+        mode: '0755'

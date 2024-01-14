@@ -93,3 +93,7 @@ ansible-playbook playbooks/setup-nfs.yml
 ```
 
 ## Environment Modules settings
+
+```bash
+ansible-playbook playbooks/setup-environment-modules.yml
+```
