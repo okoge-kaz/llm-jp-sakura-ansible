@@ -6,3 +6,10 @@
 
     - role: nvidia
       tags: nvidia
+
+    - role: mellanox
+      tags: mellanox
+
+    - role: network
+      tags: network
+
