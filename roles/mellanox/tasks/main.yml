@@ -1,0 +1,5 @@
+---
+- name: Install MELLANOX NIC Driver
+  include_tasks: driver.yml
+  when: "'gpu' in group_names"
+
