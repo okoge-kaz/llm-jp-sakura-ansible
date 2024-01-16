@@ -28,3 +28,4 @@
       - unzip
       - jq
       - environment-modules
+      - zlib1g
