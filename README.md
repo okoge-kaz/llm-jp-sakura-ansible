@@ -167,3 +167,24 @@ Change Toolkit Install Path を変更する。(例: `/mnt/volume/shared/nvidia/c
 ```
 
 
+## Persistent mode ON !
+
+ref: https://llmjp.slack.com/archives/C06C75EV70W/p1705385526312259?thread_ts=1705078613.305799&cid=C06C75EV70W
+
+```bash
+nvidia-smi -q | grep "Persistence Mode"
+    Persistence Mode                      : Disabled
+    Persistence Mode                      : Disabled
+    Persistence Mode                      : Disabled
+    Persistence Mode                      : Disabled
+    Persistence Mode                      : Disabled
+    Persistence Mode                      : Disabled
+    Persistence Mode                      : Disabled
+    Persistence Mode                      : Disabled
+```
+
+となっていたので、これを全部ONにする。(すべてのノードで)
+
+```bash
+ansible-playbook playbooks/setup-persistence-mode.yml
+```

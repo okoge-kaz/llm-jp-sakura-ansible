@@ -1,0 +1,8 @@
+---
+- name: Enable NVIDIA Persistent Mode on all GPU nodes
+  hosts: gpu
+  become: yes
+
+  tasks:
+    - name: Turn on NVIDIA Persistent Mode
+      command: nvidia-smi -pm 1
