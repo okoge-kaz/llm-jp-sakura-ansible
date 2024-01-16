@@ -1,0 +1,30 @@
+- name: add OFED apt-key
+  apt_key:
+    url: http://www.mellanox.com/downloads/ofed/RPM-GPG-KEY-Mellanox
+    state: present
+
+- name: create /opt/ofed directory
+  file:
+    path: /opt/ofed
+    state: directory
+    
+- name: download and unarchive the ofed file
+  unarchive:
+    src: https://content.mellanox.com/ofed/MLNX_OFED-23.10-1.1.9.0/MLNX_OFED_LINUX-23.10-1.1.9.0-ubuntu22.04-x86_64.tgz
+    dest: /opt/ofed
+    remote_src: yes
+
+- name: install ofed packages
+  shell: |
+    cd /opt/ofed/MLNX_OFED_LINUX-23.10-1.1.9.0-ubuntu22.04-x86_64
+    ./mlnxofedinstall --all --force
+
+- name: apt clean
+  shell: apt clean
+
+- name: Reboot
+  reboot: reboot_timeout=180
+
+- name: Ping connection
+  ping:
+

@@ -1,0 +1,5 @@
+---
+- name: Setup netplan
+  include_tasks: netplan.yml
+  when: "'gpu' in group_names"
+

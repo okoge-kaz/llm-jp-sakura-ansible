@@ -1,0 +1,8 @@
+- name: deploy /etc/netplan/10-llmjp.yaml
+  template:
+    src: templates/10-llmjp.yaml.j2
+    dest: /etc/netplan/10-llmjp.yaml
+
+- name: apply new config
+  command: netplan apply
+
