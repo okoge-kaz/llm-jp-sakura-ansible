@@ -23,7 +23,7 @@
   shell: apt clean
 
 - name: Reboot
-  reboot: reboot_timeout=180
+  reboot: reboot_timeout=600
 
 - name: Ping connection
   ping:
