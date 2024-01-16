@@ -180,7 +180,7 @@ Local Installer for Linux x86_64 (Tar) を download する。
 tar xvf cudnn-linux-x86_64-8.9.7.29_cuda12-archive.tar.xz
 ```
 
-で解答する。`/mnt/volume/shared/nvidia/cudnn/cudnn-linux-x86_64-8.9.7.29_cuda12`として置く。
+で解凍する。`/mnt/volume/shared/nvidia/cudnn/cudnn-linux-x86_64-8.9.7.29_cuda12`として置く。
 
 ### nccl
 
