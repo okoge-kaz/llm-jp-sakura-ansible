@@ -98,6 +98,8 @@ ansible-playbook playbooks/setup-nfs.yml
 ansible-playbook playbooks/setup-environment-modules.yml
 ```
 
+これで、`module avail` が使えるようになる。
+
 ### CUDA Toolkit install
 
 ```bash
@@ -165,6 +167,32 @@ Change Toolkit Install Path を変更する。(例: `/mnt/volume/shared/nvidia/c
 │ Up/Down: Move | Left/Right: Expand | 'Enter': Select | 'A': Advanced options │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
+
+(NFS上にあるので各GPU nodeから参照可能 = 各GPU nodeごとでinstallする必要はない)
+
+### cuDNN
+
+https://developer.nvidia.com/rdp/cudnn-download から cuDNN をダウンロードする。
+
+```bash
+dpkg-deb -x cudnn-local-repo-ubuntu2204-8.9.7.29_1.0-1_amd64.deb  cudnn/
+```
+
+のような形で展開する。
+
+展開後
+
+```
+/mnt/volume/shared/nvidia/cudnn$ du -sh *
+4.0K	cudnn-8.9.7
+16K	etc
+20K	usr
+846M	var
+```
+
+### nccl
+
+### modulefiles
 
 
 ## Persistent mode ON !
