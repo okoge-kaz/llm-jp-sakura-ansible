@@ -97,3 +97,73 @@ ansible-playbook playbooks/setup-nfs.yml
 ```bash
 ansible-playbook playbooks/setup-environment-modules.yml
 ```
+
+### CUDA Toolkit install
+
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/12.1.0/local_installers/cuda_12.1.0_530.30.02_linux.run
+sudo sh cuda_12.1.0_530.30.02_linux.run
+```
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ CUDA Installer                                                               │
+│ - [X] Driver                                                                 │
+│      [X] 530.30.02                                                           │
+│ + [X] CUDA Toolkit 12.1                                                      │
+│   [X] CUDA Demo Suite 12.1                                                   │
+│   [X] CUDA Documentation 12.1                                                │
+│ - [ ] Kernel Objects                                                         │
+│      [ ] nvidia-fs                                                           │
+│   Options                                                                    │
+│   Install                                                                    │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Up/Down: Move | Left/Right: Expand | 'Enter': Select | 'A': Advanced options │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+CUDA Toolkit 12.1 以外は install しないように check を外す。
+さらに A: Advanced options を選択する。すると次のようになるので、Create symbolic link from /usr/local/cuda を外す。またCreate desktop menu shortcuts も外す。
+
+Change Toolkit Install Path を変更する。(例: `/mnt/volume/shared/nvidia/cuda/cuda-12.1`)
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ CUDA Toolkit                                                                 │
+│   Change Toolkit Install Path                                                │
+│   [X] Create symbolic link from /usr/local/cuda                              │
+│ - [X] Create desktop menu shortcuts                                          │
+│      [X] All users                                                           │
+│      [ ] Yes                                                                 │
+│      [ ] No                                                                  │
+│   [X] Install manpage documents to /usr/share/man                            │
+│   Done                                                                       │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Up/Down: Move | Left/Right: Expand | 'Enter': Select | 'A': Advanced options │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+
