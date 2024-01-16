@@ -174,21 +174,13 @@ Change Toolkit Install Path を変更する。(例: `/mnt/volume/shared/nvidia/c
 
 https://developer.nvidia.com/rdp/cudnn-download から cuDNN をダウンロードする。
 
+Local Installer for Linux x86_64 (Tar) を download する。
+
 ```bash
-dpkg-deb -x cudnn-local-repo-ubuntu2204-8.9.7.29_1.0-1_amd64.deb  cudnn/
+tar xvf cudnn-linux-x86_64-8.9.7.29_cuda12-archive.tar.xz
 ```
 
-のような形で展開する。
-
-展開後
-
-```
-/mnt/volume/shared/nvidia/cudnn$ du -sh *
-4.0K	cudnn-8.9.7
-16K	etc
-20K	usr
-846M	var
-```
+で解答する。`/mnt/volume/shared/nvidia/cudnn/cudnn-linux-x86_64-8.9.7.29_cuda12`として置く。
 
 ### nccl
 
