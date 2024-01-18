@@ -344,4 +344,26 @@ make -j 40 install
           - "172.16.17.0/24"
 ```
 
+## python
 
+```
+ansible-playbook playbooks/install-venv.yml
+```
+
+pyenvをlogin nodeにインストール
+
+```
+curl https://pyenv.run | bash
+```
+
+~/.bashrc に 以下の内容を書き込み
+
+```
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+```
+
+```
+pyenv install 3.10
+```

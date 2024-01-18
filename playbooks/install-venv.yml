@@ -1,0 +1,10 @@
+---
+- name: Install Python 3.10 venv on all nodes
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install python3.10-venv
+      apt:
+        name: python3.10-venv
+        state: present
+
