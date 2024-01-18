@@ -346,6 +346,7 @@ make -j 40 install
 
 ## python
 
+(login node) 
 ```
 ansible-playbook playbooks/install-venv.yml
 ```
@@ -365,5 +366,6 @@ eval "$(pyenv virtualenv-init -)"
 ```
 
 ```
+source ~/.bashrc 
 pyenv install 3.10
 ```
